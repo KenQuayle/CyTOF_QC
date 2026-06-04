@@ -1,0 +1,13 @@
+alias,pop,parent,dims,gating_method,gating_args,collapseDataForGating,groupBy,preprocessing_method,preprocessing_args
+*,+/-,root,Ce140Di,gate_mindensity,"gate_range=c(200,350)",FALSE,NA,NA,
+CD45+,+,Ce140Di-,Y89Di,gate_mindensity,"gate_range=c(100,275)",FALSE,NA,NA,
+CD7+,+,CD45+,153Eu_CD7,gate_mindensity,"gate_range=c(100,300)",FALSE,NA,NA,
+CD7+CD3+,+,CD7+,154Sm_CD3,gate_mindensity,"gate_range=c(100,300)",FALSE,NA,NA,
+CD7+CD3-,-,CD7+,154Sm_CD3,gate_mindensity,"gate_range=c(100,300)",FALSE,NA,NA,
+*,+/-,CD45+,142Nd_CD19,gate_mindensity,"gate_range=c(100,300)",FALSE,NA,NA,
+*,+/-,142Nd_CD19-,154Sm_CD3,gate_mindensity,"gate_range=c(100,300)",FALSE,NA,NA,
+*,+/-,154Sm_CD3+,174Yb_CD4,gate_mindensity,"gate_range=c(100,300)",FALSE,NA,NA,
+*,+/-,174Yb_CD4-,162Dy_CD8,gate_mindensity,"gate_range=c(200,400)",FALSE,NA,NA,
+*,+/-,154Sm_CD3-,170Er_HLADR,gate_mindensity,"gate_range=c(100,300)",FALSE,NA,NA,
+HLADR+CD16+,+,170Er_HLADR+,145Nd_CD16,gate_mindensity,"gate_range=c(100,300)",FALSE,NA,NA,
+HLADR+CD11c+,+,170Er_HLADR+,147Sm_CD11c,gate_mindensity,"gate_range=c(100,300)",FALSE,NA,NA,
