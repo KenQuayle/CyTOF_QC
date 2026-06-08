@@ -3,8 +3,8 @@ CRANpackages <- c("remotes", "BiocManager", "purrr", "dplyr", "stringr", "data.t
 BiocPackages <- c("flowCore", "flowWorkspace", "openCyto")
 install.packages(setdiff(CRANpackages, rownames(installed.packages())))
 BiocManager::install(setdiff(BiocPackages, rownames(installed.packages())), lib=.libPaths()[1])
-if(!"Luciernaga" %in% rownames(installed.packages())){remotes::install.github("DavidRach/Luciernaga")}
-if(!"ggcyto" %in% rownames(installed.packages())){remotes::install.github("RGLab/ggcyto")}
+if(!"Luciernaga" %in% rownames(installed.packages())){remotes::install_github("DavidRach/Luciernaga")}
+if(!"ggcyto" %in% rownames(installed.packages())){remotes::install_github("RGLab/ggcyto")}
 library(flowCore)
 library(flowWorkspace)
 library(openCyto)
