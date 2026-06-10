@@ -1,8 +1,9 @@
 #Check if necessary packages are installed and install them if not:
 CRANpackages <- c("remotes", "BiocManager", "purrr", "dplyr", "stringr", "data.table", "lubridate", "tidyr", "tidyselect", "tibble")
-BiocPackages <- c("flowCore", "flowWorkspace", "openCyto")
 install.packages(setdiff(CRANpackages, rownames(installed.packages())))
-BiocManager::install(setdiff(BiocPackages, rownames(installed.packages())), lib=.libPaths()[1])
+if(!"flowCore" %in% rownames(installed.packages())){BiocManager::install("flowCore", lib=.libPaths()[1])}
+if(!"flowWorkspace" %in% rownames(installed.packages())){BiocManager::install("flowWorkspace", lib=.libPaths()[1])}
+if(!"openCyto" %in% rownames(installed.packages())){BiocManager::install("openCyto", lib=.libPaths()[1])}
 if(!"Luciernaga" %in% rownames(installed.packages())){remotes::install_github("DavidRach/Luciernaga")}
 if(!"ggcyto" %in% rownames(installed.packages())){remotes::install_github("RGLab/ggcyto")}
 library(flowCore)
@@ -51,7 +52,7 @@ if(!dir.exists(outputLocation)){dir.create(outputLocation, recursive = FALSE)}
 BeadMFIHistograms <- Utility_RidgePlots(gs=gatingSet, subset="Ce140Di+", TheX="140Ce_EQ Bead", TheY="Date", TheFill="BeadsType", returntype="pdf", outpath=outputLocation, filename="EQ_beads")
 CenterHistograms <- Utility_RidgePlots(gs=gatingSet, subset="Ce140Di-", TheX="Center", TheY="Date", TheFill="BeadsType", returntype="pdf", outpath=outputLocation, filename="Center")
 WidthHistograms <- Utility_RidgePlots(gs=gatingSet, subset="Ce140Di-", TheX="Width", TheY="Date", TheFill="BeadsType", returntype="pdf", outpath=outputLocation, filename="Width")
-ResidualHistograms <- Utility_RidgePlots(gs=gatingSet, subset="Ce140Di-", TheX="Residual", TheY="Date", TheFill="BeadsType", returntype="pdf", outpath=storageLocation, filename="Residual")
+ResidualHistograms <- Utility_RidgePlots(gs=gatingSet, subset="Ce140Di-", TheX="Residual", TheY="Date", TheFill="BeadsType", returntype="pdf", outpath=outputLocation, filename="Residual")
 OffsetHistograms <- Utility_RidgePlots(gs=gatingSet, subset="Ce140Di-", TheX="Offset", TheY="Date", TheFill="BeadsType", returntype="pdf", outpath=outputLocation, filename="Offset")
 AmplitudeHistograms <- Utility_RidgePlots(gs=gatingSet, subset="Ce140Di-", TheX="Amplitude", TheY="Date", TheFill="BeadsType", returntype="pdf", outpath=outputLocation, filename="Amplitude")
 CD45Histograms <- Utility_RidgePlots(gs=gatingSet, subset="Ce140Di-", TheX="89Y_CD45_EQ6", TheY="Date", TheFill="BeadsType", returntype="pdf", outpath=outputLocation, filename="CD45")
