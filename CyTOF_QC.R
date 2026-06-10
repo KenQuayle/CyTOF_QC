@@ -72,8 +72,10 @@ freqData <- freqData |> tidyr::pivot_wider(names_from=Population, values_from=Co
 
 #Create percent of parent columns and change column names to not include problematic symbols
 freqData <- freqData |> mutate(`percentCD45`=100*`CD45+`/`Ce140Di-`) |> mutate(`percentCD3`=100*`154Sm_CD3+`/`CD45+`) |> mutate(`percentCD19`=100*`142Nd_CD19+`/`CD45+`) |> mutate(`percentCD3CD4`=100*`174Yb_CD4+`/`154Sm_CD3+`) |> mutate(`percentCD3CD8`=100*`162Dy_CD8+`/`154Sm_CD3+`) |> mutate(`percentCD7CD3pos`=100*`CD7+CD3+`/`CD45+`) |> mutate(`percentCD7CD3neg`=100*`CD7+CD3-`/`CD45+`) |> mutate(`percentCD16HLADR`=100*`HLADR+CD16+`/`154Sm_CD3-`) |> mutate(`percentCD11cHLADR`=100*`HLADR+CD11c+`/`154Sm_CD3-`) |> mutate(numCells=`Ce140Di-`) |> mutate(numBeads=`Ce140Di+`)
+freqData <- freqData |> mutate(`totalEvents`=`numBeads`+`numCells`)
 
 #Create longitudinal plots
+totalEventsPlot <- ggplot(freqData, aes(x=as.Date(Date), y=totalEvents)) + geom_point() + geom_line() + coord_cartesian(ylim=c(0,150000)) + theme_bw() + theme(axis.text.x = element_text(angle=45, vjust=1, hjust=1), plot.title=element_text(hjust=0.5)) + labs(x=NULL, y=NULL) + ggtitle("Total events")
 numCellsPlot <- ggplot(freqData, aes(x=as.Date(Date), y=numCells)) + geom_point() + geom_line() + coord_cartesian(ylim=c(0,100000)) + theme_bw() + theme(axis.text.x = element_text(angle=45, vjust=1, hjust=1), plot.title=element_text(hjust=0.5)) + labs(x=NULL, y=NULL) + ggtitle("# of cells")
 numBeadsPlot <- ggplot(freqData, aes(x=as.Date(Date), y=numBeads)) + geom_point() + geom_line() + coord_cartesian(ylim=c(0,60000)) + theme_bw() + theme(axis.text.x = element_text(angle=45, vjust=1, hjust=1), plot.title=element_text(hjust=0.5)) + labs(x=NULL, y=NULL) + ggtitle("# of beads")
 CD45plot <- ggplot(freqData, aes(x=as.Date(Date), y=percentCD45)) + geom_point() + geom_line() + coord_cartesian(ylim=c(40,100)) + theme_bw() + theme(axis.text.x = element_text(angle=45, vjust=1, hjust=1), plot.title=element_text(hjust=0.5)) + labs(x=NULL, y=NULL) + ggtitle("%CD45+")
@@ -99,5 +101,5 @@ Ir191MFIplot <- ggplot(newPdata, aes(x=as.Date(Date), y=Ir191MFI)) + geom_point(
 Ir193MFIplot <- ggplot(newPdata, aes(x=as.Date(Date), y=Ir193MFI)) + geom_point() + geom_line() + coord_cartesian(ylim=c(1000,1500)) + theme_bw() + theme(axis.text.x = element_text(angle=45, vjust=1, hjust=1), plot.title=element_text(hjust=0.5)) + labs(x=NULL, y=NULL) + ggtitle("193Ir MFI")
 
 #Create reports
-LJplots <- (numCellsPlot | numBeadsPlot | beadMFIplot)/(centerMFIplot | Ir191MFIplot | Ir193MFIplot)/(CD45plot | CD7CD3posplot | CD7CD3negplot)/(CD3plot | CD4plot | CD8plot)/(CD19plot | CD16plot | CD11cplot)
+LJplots <- (totalEventsPlot | numCellsPlot | numBeadsPlot)/(beadMFIplot | Ir191MFIplot | Ir193MFIplot)/(CD45plot | CD7CD3posplot | CD7CD3negplot)/(CD3plot | CD4plot | CD8plot)/(CD19plot | CD16plot | CD11cplot)
 ggsave(filename=file.path(outputLocation, "LJplots.pdf"), plot=LJplots, width=10, height=9, units="in")
